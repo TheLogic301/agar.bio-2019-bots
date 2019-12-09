@@ -19,6 +19,8 @@ Installation process:
 
 - change botAmount to how many you like , default = 10
 
+- change botName to whatever name you want the bots to spawn with ''
+
 - go to that server you just put spawn in
 
 - node server.js
