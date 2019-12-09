@@ -8,4 +8,14 @@ Installation process:
 
 - Install all modules
 
-- run server.js
+- go to any empty FFA agar.bio server and press F12 copy the latest ws://ip:port log
+
+- paste it in let serverIP = 'ws://ip:port'
+
+- change botAmount to how many you like , default = 10
+
+- go to that server you just put spawn in
+
+- node server.js
+
+- Enjoy bots
