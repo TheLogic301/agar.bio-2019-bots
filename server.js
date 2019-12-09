@@ -7,11 +7,11 @@ const Socks = require('socks');
 const Fs = require('fs');
 const Colors = require('colors');
 
-let botProxies = Fs.readFileSync("Socks", "utf8").split("\n");
+let botProxies = Fs.readFileSync("Socks.txt", "utf8").split("\n");
 let botIps = 1;
-let serverIP = 'ws://37.187.76.129:11024'; // AGAR.BIO FFA7 SERVER IP
-let botName = '10 FREE BOTS!!'; //string
-let botAmount = 10;
+let serverIP = 'ws://37.187.76.129:11025'; // AGAR.BIO FFA7 SERVER IP
+let botName = '10 FREE BOTS!!';
+let botAmount = 10; //default bot amount
 let logWsEvent = false;
 let bots = [];
 let botCount = botAmount;
@@ -19,7 +19,7 @@ let opcode_254 = new Buffer([254, 1, 0, 0, 0]);
 let opcode_255 = new Buffer([255, 114, 97, 103, 79]);
 //let gameVersion = new Buffer([255, 6, 71, 111, 116, 97, 32, 87, 101, 98, 32, 50, 46, 48, 46, 53, 0]);
 
-function socksAgent(id) { // socks5 agent
+function socksAgent(id) {
   let proxy = botProxies[Math.floor(id / botIps)].split(":");
   return new Socks.Agent({
     proxy: {
@@ -30,12 +30,12 @@ function socksAgent(id) { // socks5 agent
   });
 }
 
-class Bot { // defines each bot and what to do
+class Bot { //defines each bot
   constructor(id) {
     this.id = id;
     this.ws = null;
     this.botIds = [];
-    this.botOptions = { headers: {
+    this.botOptions = { headers: { //headers
       'Origin': 'http://agar.bio',
       'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:67.0) Gecko/20100101 Firefox/67.0',
     },
@@ -48,20 +48,21 @@ class Bot { // defines each bot and what to do
   
   connect() {
     //if (this.ws) this.ws.close();
+	  
     this.ws = new WebSocket(serverIP, this.botOptions);
-  	this.ws.binaryType = 'nodebuffer';
+    this.ws.binaryType = 'nodebuffer';
     this.ws.onopen = this.onOpen.bind(this);
     this.ws.onerror = this.onError.bind(this);
     this.ws.onclose = this.onClose.bind(this);
     this.ws.onmessage = this.onMessage.bind(this);
   }
   
-  send(buf) { //send websocket data function
+  send(buf) {
     if (this.ws && this.ws.readyState == 1) this.ws.send(buf);
     console.log(`Send ${new Uint8Array(buf)}`);
   }
   
-  spawn() { //spawn opcode 0,0 xd
+  agarbio() {
       let buf = new Buffer(1 + ((this.nickID.length + 1) * 2));
       buf.writeUInt8(0, 0);
       for (let i = 0; i < this.nickID.length; i++) buf.writeUInt8(this.nickID.charCodeAt(i), 1 + 2 * i);
@@ -70,7 +71,7 @@ class Bot { // defines each bot and what to do
      // this.send(new Buffer([0, 0, 0]));
   }
   
-  sendMove(x, y) {
+  sendMove(x, y) { //for later xd opcode 16 ezz
     let buf = new Buffer(5);
     buf.writeUInt8(16, 0);
     buf.writeInt16LE(x, 1);
@@ -87,12 +88,13 @@ class Bot { // defines each bot and what to do
   //  this.send(gameVersion);
    // this.send(new Buffer([71]));
     //setInterval(this.send.bind(this), 3e4, new Buffer([71]));
-    this.sendCaptcha(this.nickID);
-     setInterval(() => { //respawn interval
-		 this.spawn();
+   // this.sendCaptcha(this.nickID);
+	  
+     setInterval(() => { // major fix
+	this.agarbio();
 		// this.sendPing();
 		// this.sendSpectate();
-	 }, 1000); // per 1 ms
+     }, 1000); // send every 1ms
   }
   
   onError(e) {
@@ -107,7 +109,7 @@ class Bot { // defines each bot and what to do
     //console.log(botCount);
   }
   
-  onMessage(msg) {
+  onMessage(msg) { //client backend
     if (!this.ws) return;
     let buf = new Buffer(msg.data);
     let opcode = buf.readUInt8(0);
