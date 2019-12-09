@@ -19,7 +19,7 @@ let opcode_254 = new Buffer([254, 1, 0, 0, 0]);
 let opcode_255 = new Buffer([255, 114, 97, 103, 79]);
 //let gameVersion = new Buffer([255, 6, 71, 111, 116, 97, 32, 87, 101, 98, 32, 50, 46, 48, 46, 53, 0]);
 
-function socksAgent(id) {
+function socksAgent(id) { // socks5 agent
   let proxy = botProxies[Math.floor(id / botIps)].split(":");
   return new Socks.Agent({
     proxy: {
@@ -30,7 +30,7 @@ function socksAgent(id) {
   });
 }
 
-class Bot {
+class Bot { // defines each bot and what to do
   constructor(id) {
     this.id = id;
     this.ws = null;
