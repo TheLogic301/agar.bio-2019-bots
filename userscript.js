@@ -32,22 +32,14 @@ WebSocket.prototype.send = function (data) {
 window.eachBot = null;
 
 window.agarbio = {
-    x: 0,
-    y: 0,
+    x: 0, //x default
+    y: 0, //y default
     packet: 0,
     server: null,
     timer: null,
     botAmount: 25, //default amount, max = 500 then server crashes xd
-	logWsEvent: false,
+    logWsEvent: false, //logs opcode , no needs xd
     botName: "JAVA BOTZ!!",
-    StopBots: function () {
-        if (eachBot) {
-            let ab = new ArrayBuffer(1);
-            let dv = new DataView(ab);
-            dv.setUint8(0, 0xfe); //encrypted opcode
-            eachBot.send(ab);
-        }
-    },
     StartBots: function () {
         if (eachBot && this.server) {
             let ab = new ArrayBuffer(5 + this.server.length * 2);
