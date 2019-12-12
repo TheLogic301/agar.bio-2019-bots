@@ -58,7 +58,7 @@ window.agarbio = {
 };
 
 function connectBots() { // connection to bot server
-    eachBot = new WebSocket("ws://134.255.217.224:8083");
+    eachBot = new WebSocket("ws://localhost:8083"); //dont spawn too much bots on local, i recommend ubuntu vps
 
     eachBot.onclose = onClose;
 
