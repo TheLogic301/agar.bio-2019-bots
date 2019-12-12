@@ -1,28 +1,35 @@
 # agar.bio-2019-bots
 
+The most OP Agar.bio bots i coded
+
 I will keep updating my bots if you want me to!!
 
 Installation process:
 
-- Install Node.js and Npm for Windows/Mac/Linux
+- Install Node.js
 
-- Install all modules as following :
+- Install 2 modules ( ws, colors )
 
- - npm i ws
- - npm i socks@1
- - npm i fs
- - npm i colors
+- Download Tampermonkey for Chrome or Firefox
 
-- go to any empty FFA agar.bio server and press F12 copy the latest ws://ip:port log
+- Add userscript.js to it
 
-- paste it in let serverIP = 'ws://ip:port'
+- Go to any good Agar.Bio server with userscript loaded
 
-- change botAmount to how many you like , default = 10
+- Play in server
 
-- change botName to whatever name you want the bots to spawn with ''
+- Launch server.js until you see blue message (GOT MOVEMENT PACKET)
 
-- go to that server you just put spawn in
+- Then just press S and bots will start and go to your mouse
 
-- node server.js
+P.S : To activate AI on bots just press P and when you want them to go to you again press P again
 
-- Enjoy bots!!
+Bot Controls :
+
+- Split = E
+
+- Eject = R
+
+Enjoy everyone i completely finished this project and i hope that you guys like it :) thanks for voting in our discord server
+
+https://discord.gg/GCv8TV
