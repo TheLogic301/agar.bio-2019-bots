@@ -32,4 +32,6 @@ Bot Controls :
 
 Enjoy everyone i completely finished this project and i hope that you guys like it :) thanks for voting in our discord server
 
+Made by 200bots.ga Developer Java
+
 https://discord.gg/GCv8TV
